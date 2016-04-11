@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/choose"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:text="请选择教室"
+            android:background="@color/transparent"/>
+
+        <Button
+            android:id="@+id/信教"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_toLeftOf="@+id/choose"
+            android:layout_centerVertical="true"
+            android:text="信教"
+            android:background="@drawable/buildingbutton"/>
+
+        <Button
+            android:id="@+id/中教"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_toRightOf="@id/choose"
+            android:layout_centerVertical="true"
+            android:text="中教"
+            android:background="@drawable/buildingbutton"/>
+
+        <Button
+            android:id="@+id/三教"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_above="@+id/choose"
+            android:layout_centerHorizontal="true"
+            android:text="三教"
+            android:background="@drawable/buildingbutton"/>
+
+        <Button
+            android:id="@+id/研教"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_below="@+id/choose"
+            android:layout_centerHorizontal="true"
+            android:text="研教"
+            android:background="@drawable/buildingbutton"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

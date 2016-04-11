@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:stretchColumns="0,3"
+    android:gravity="center_vertical"
+    tools:context="com.example.chenhz.myapplication.LoginActivity">
+
+    <ImageView
+        android:id="@+id/choose"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginBottom="40dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/individual"/>
+
+    <TableRow>
+        <TextView />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="用户名"
+            android:src="@drawable/individual"/>
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="请输入用户名"
+            android:minWidth="185dp"
+            android:singleLine="true"/>
+        <TextView />
+    </TableRow>
+    <TableRow>
+        <TextView />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="密码"
+            android:src="@drawable/passsword"/>
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:password="true"
+            android:hint="请输入密码"
+            android:minWidth="185dp"
+            android:singleLine="true"/>
+        <TextView />
+    </TableRow>
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="100dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="85dp"
+            android:layout_marginRight="85dp"
+            android:layout_height="40dp"
+            android:text="登录"
+            android:background="#FFA500"/>
+    </TableLayout>
