@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.chenhz.classroommap.domain.User;
+import com.example.chenhz.classroommap.service.UserService;
 import com.jay.fragmentdemo.R;
 
 public class RegisterActivity extends Activity {
@@ -29,7 +31,15 @@ public class RegisterActivity extends Activity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UserService uService=new UserService(RegisterActivity.this);
+                String name = textname.getText().toString();
+                String pass = textpasssword1.getText().toString();
                 if(registerIsSuccess()){
+                    User user=new User();
+                    user.setUsername(name);
+                    user.setPassword(pass);
+                    user.setUday(0);
+                    uService.register(user);
                     Toast.makeText(mContext, "注册成功！", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                     startActivity(intent);

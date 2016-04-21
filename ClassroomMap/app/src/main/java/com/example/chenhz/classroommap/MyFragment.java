@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.chenhz.classroommap.service.ClassroomService;
 import com.jay.fragmentdemo.R;
 
 /**
@@ -26,7 +27,17 @@ public class MyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
         view = inflater.inflate(R.layout.fg_content, container, false);
+
+        ClassroomService classroomService = new ClassroomService(getActivity());
+        int xinjiao = classroomService.BuildingPnum("信教");
+        int zhongjiao = classroomService.BuildingPnum("中教");
+        int yanjiao = classroomService.BuildingPnum("研教");
+        int sanjiao = classroomService.BuildingPnum("三教");
+
         Button btn1 = (Button) view.findViewById(R.id.信教);
+        if(xinjiao>1000){
+            btn1.setBackgroundResource(R.drawable.buttondeepblue);
+        }
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,7 +46,11 @@ public class MyFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         Button btn2 = (Button) view.findViewById(R.id.中教);
+        if(zhongjiao>1000){
+            btn2.setBackgroundResource(R.drawable.buttondeepblue);
+        }
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +59,11 @@ public class MyFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         Button btn3 = (Button) view.findViewById(R.id.研教);
+        if(yanjiao>1000){
+            btn3.setBackgroundResource(R.drawable.buttondeepblue);
+        }
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +72,11 @@ public class MyFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         Button btn4 = (Button) view.findViewById(R.id.三教);
+        if(sanjiao>1000){
+            btn4.setBackgroundResource(R.drawable.buttondeepblue);
+        }
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,4 +87,5 @@ public class MyFragment extends Fragment {
         });
         return view;
     }
+
 }

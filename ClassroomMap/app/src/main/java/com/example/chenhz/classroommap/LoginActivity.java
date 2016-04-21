@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.chenhz.classroommap.service.UserService;
 import com.jay.fragmentdemo.R;
 
 public class LoginActivity extends Activity {
@@ -24,10 +25,20 @@ public class LoginActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(loginIsSuccess())
-                {
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
+                UserService uService=new UserService(LoginActivity.this);
+                String name = textname.getText().toString();
+                String pass = textpasssword.getText().toString();
+                if(loginIsSuccess()){
+                    if(uService.login(name, pass))
+                    {
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        intent.putExtra("username",name);
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.makeText(LoginActivity.this,"登陆失败！用户名或密码错误！",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

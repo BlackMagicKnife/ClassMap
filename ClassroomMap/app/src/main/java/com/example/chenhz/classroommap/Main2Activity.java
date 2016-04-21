@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chenhz.classroommap.service.ClassroomService;
 import com.jay.fragmentdemo.R;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ import java.util.List;
 public class Main2Activity extends Activity{
     private Spinner weekday = null;
     private Spinner time = null;
+    String day = "周一";
+    String time1 = "1~2节";
     ArrayAdapter<String> weekdayAdapter = null;
     ArrayAdapter<String> timeAdapter = null;
     static int weekdayPosition = 4;
@@ -64,7 +67,7 @@ public class Main2Activity extends Activity{
         setContentView(R.layout.activity_main2);
         setSpinner();
         Bundle bundle = this.getIntent().getExtras();
-        String name = bundle.getString("Building");
+        final String name = bundle.getString("Building");
         //接收name值
        TextView view = (TextView) findViewById(R.id.building);
         view.setText("您选择了"+name);
@@ -84,12 +87,88 @@ public class Main2Activity extends Activity{
                 break;
         }
 
+
         //点击查看地图
         Button btnmap = (Button)findViewById(R.id.map);
         btnmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        Button btnsearch = (Button)findViewById(R.id.search);
+        btnsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClassroomService classroomService = new ClassroomService(Main2Activity.this);
+                String[] result = classroomService.search(day, time1, name);
+                int[] Pnum = classroomService.roomPnum(day,time1,name);
+                item_lt1.clear();
+                item_lt2.clear();
+                item_lt3.clear();
+                item_lt4.clear();
+                item_lt5.clear();
+                item_lt6.clear();
+                int floornum;
+                int rPnum;
+                if(name.equals("信教")){
+                    for (int i = 0; result[i]!="0"; i++)
+                    {
+                        floornum = Integer.valueOf(result[i]).intValue();
+                        rPnum = Pnum[i];
+                        if(floornum<2000) {
+                            item_lt1.add(result[i]+"     "+rPnum+"人");
+                        }
+                        else if(floornum>2000&&floornum<3000){
+                            item_lt2.add(result[i]+"     "+rPnum+"人");
+                        }
+                        else if(floornum>3000&&floornum<4000){
+                            item_lt3.add(result[i]+"     "+rPnum+"人");
+                        }
+                        else if(floornum>4000&&floornum<5000){
+                            item_lt4.add(result[i]+"     "+rPnum+"人");
+                        }
+                        else if(floornum>5000&&floornum<6000){
+                            item_lt5.add(result[i]+"     "+rPnum+"人");
+                        }
+                        else if(floornum>6000){
+                            item_lt6.add(result[i]+"     "+rPnum+"人");
+                        }
+                    }
+                }
+                else if(name.equals("三教")||name.equals("中教")||name.equals("研教")){
+                    for (int i = 0; result[i]!="0"; i++)
+                    {
+                        floornum = Integer.valueOf(result[i]).intValue();
+                        rPnum = Pnum[i];
+                        if(floornum<200) {
+                            item_lt1.add(result[i]+"     "+rPnum+"人");
+                        }
+                        else if(floornum>200&&floornum<300){
+                            item_lt2.add(result[i]+"     "+rPnum+"人");
+                        }
+                        else if(floornum>300&&floornum<400){
+                            item_lt3.add(result[i]+"     "+rPnum+"人");
+                        }
+                        else if(floornum>400&&floornum<500){
+                            item_lt4.add(result[i]+"     "+rPnum+"人");
+                        }
+                        else if(floornum>500&&floornum<600){
+                            item_lt5.add(result[i]+"     "+rPnum+"人");
+                        }
+                        else if(floornum>600){
+                            item_lt6.add(result[i]+"     "+rPnum+"人");
+                        }
+                    }
+                }
+
+                expandableListView.collapseGroup(0);
+                expandableListView.collapseGroup(1);
+                expandableListView.collapseGroup(2);
+                expandableListView.collapseGroup(3);
+                expandableListView.collapseGroup(4);
+                expandableListView.collapseGroup(5);
             }
         });
 
@@ -101,34 +180,19 @@ public class Main2Activity extends Activity{
         group_list.add("五楼");
         group_list.add("六楼");
 
-        item_lt1 = new ArrayList<String>();
-        item_lt1.add("1002");
-        item_lt1.add("1004");
-        item_lt1.add("1010");
+        item_lt1 = new ArrayList<>();
 
-        item_lt2 = new ArrayList<String>();
-        item_lt2.add("2002");
-        item_lt2.add("2006");
-        item_lt2.add("2010");
+        item_lt2 = new ArrayList<>();
 
-        item_lt3 = new ArrayList<String>();
-        item_lt3.add("3004");
-        item_lt3.add("3006");
-        item_lt3.add("3010");
+        item_lt3 = new ArrayList<>();
 
-        item_lt4 = new ArrayList<String>();
-        item_lt4.add("4002");
-        item_lt4.add("4006");
+        item_lt4 = new ArrayList<>();
 
-        item_lt5 = new ArrayList<String>();
-        item_lt5.add("5002");
-        item_lt5.add("5006");
-        item_lt5.add("5010");
+        item_lt5 = new ArrayList<>();
 
-        item_lt6 = new ArrayList<String>();
-        item_lt6.add("6002");
+        item_lt6 = new ArrayList<>();
 
-        item_list = new ArrayList<List<String>>();
+        item_list = new ArrayList<>();
         item_list.add(item_lt1);
         item_list.add(item_lt2);
         item_list.add(item_lt3);
@@ -219,7 +283,7 @@ public class Main2Activity extends Activity{
                 // 设置二级下拉列表的选项内容适配器
                 time.setAdapter(timeAdapter);
                 weekdayPosition = position;    //记录当前省级序号，留给下面修改县级适配器时用
-                String weekday = arg0.getItemAtPosition(position).toString();
+                day = arg0.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -232,8 +296,7 @@ public class Main2Activity extends Activity{
         time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String time = parent.getItemAtPosition(position).toString();
-                System.out.println(time);
+                time1 = parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -241,6 +304,7 @@ public class Main2Activity extends Activity{
 
             }
         });
+
     }
 
     class MyExpandableListViewAdapter extends BaseExpandableListAdapter
@@ -342,7 +406,6 @@ public class Main2Activity extends Activity{
                 itemHolder = (ItemHolder)convertView.getTag();
             }
             itemHolder.txt.setText(item_list.get(groupPosition).get(childPosition));
-            itemHolder.img.setBackgroundResource(item_list2.get(groupPosition).get(childPosition));
             return convertView;
         }
 

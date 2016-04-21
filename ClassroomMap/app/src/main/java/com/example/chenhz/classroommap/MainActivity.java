@@ -14,10 +14,10 @@ import com.jay.fragmentdemo.R;
  * Created by Coder-pig on 2015/8/28 0028.
  */
 public class MainActivity extends Activity implements View.OnClickListener{
-
     private TextView txt_channel;
     private TextView txt_message;
     private TextView txt_better;
+    private String username = null;
 
     //Fragment Object
     private MyFragment fg1;
@@ -28,6 +28,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = this.getIntent().getExtras();
+        username = bundle.getString("username");
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         fManager = getFragmentManager();
@@ -80,7 +82,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 setSelected();
                 txt_message.setSelected(true);
                 if(fg2 == null){
-                    fg2 = new MyFragment2("第二个Fragment");
+                    fg2 = new MyFragment2(username);
                     fTransaction.add(R.id.ly_content,fg2);
                 }else{
                     fTransaction.show(fg2);

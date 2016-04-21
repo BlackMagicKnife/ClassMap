@@ -67,13 +67,13 @@
             android:singleLine="true"/>
         <TextView />
     </TableRow>
-    <Button
-        android:id="@+id/btnRegiter"
-        android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:layout_marginLeft="85dp"
-        android:layout_marginRight="85dp"
-        android:layout_marginTop="20dp"
-        android:text="注册"
-        android:background="#FFA500"/>
+        <Button
+            android:id="@+id/btnRegiter"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="85dp"
+            android:layout_marginRight="85dp"
+            android:layout_marginTop="20dp"
+            android:text="注册"
+            android:background="#FFA500"/>
 </TableLayout>

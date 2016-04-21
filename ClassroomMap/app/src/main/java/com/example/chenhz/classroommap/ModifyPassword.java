@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chenhz.classroommap.service.UserService;
 import com.jay.fragmentdemo.R;
 
 public class ModifyPassword extends Activity {
@@ -21,17 +23,24 @@ public class ModifyPassword extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_password);
-        textname = (EditText)findViewById(R.id.name);
-        textpasssword1 = (EditText)findViewById(R.id.password1);
-        textpasssword2 = (EditText)findViewById(R.id.password2);
+        Bundle bundle = this.getIntent().getExtras();
+        final String username = bundle.getString("username");
+        TextView t = (TextView)findViewById(R.id.username);
+        t.setText(username);
+        textpasssword1 = (EditText)findViewById(R.id.newpassword1);
+        textpasssword2 = (EditText)findViewById(R.id.newpassword2);
         mContext = ModifyPassword.this;
         btn = (Button)findViewById(R.id.btnModify);
         btn.setOnClickListener(new View.OnClickListener() {
+            UserService uService=new UserService(ModifyPassword.this);
             @Override
             public void onClick(View v) {
+                String pass = textpasssword1.getText().toString();
                 if(ModifyIsSuccess()){
+                    uService.modify(username,pass);
                     Toast.makeText(mContext, "修改成功！", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ModifyPassword.this,MainActivity.class);
+                    intent.putExtra("username",username);
                     startActivity(intent);
                 }
             }
@@ -39,7 +48,6 @@ public class ModifyPassword extends Activity {
     }
 
     private boolean ModifyIsSuccess(){
-        String username = textname.getText().toString();
         String password1 = textpasssword1.getText().toString();
         String password2 = textpasssword2.getText().toString();
         if(password1.length()<6){
