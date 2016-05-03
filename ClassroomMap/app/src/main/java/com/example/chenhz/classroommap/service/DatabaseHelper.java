@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-	static String name="classroomMap.db";
+	static String name="classroommap.db";
 	static int dbVersion=1;
 	public DatabaseHelper(Context context) {
 		super(context, name, null, dbVersion);

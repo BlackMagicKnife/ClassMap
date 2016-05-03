@@ -13,6 +13,12 @@ import com.example.chenhz.classroommap.domain.User;
 import com.example.chenhz.classroommap.service.UserService;
 import com.jay.fragmentdemo.R;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class RegisterActivity extends Activity {
     private EditText textname = null;
     private EditText textpasssword1 = null;
@@ -23,6 +29,42 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        String DATABASE_PATH = "/data/data/com.example.chenhz.classroommap/databases/";
+        String DATABASE_FILENAME = "classroommap.db";
+
+        try {
+            String databaseFilename = DATABASE_PATH + "/" + DATABASE_FILENAME;
+            File dir = new File(DATABASE_PATH);
+            // 判断SD卡下是否存在存放数据库的目录，如果不存在，新建目录
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            try {
+                // 如果数据库已经在SD卡的目录下存在，那么不需要重新创建，否则创建文件，并拷贝/res/raw下面的数据库文件
+                if (!(new File(databaseFilename)).exists()) {
+                    // /res/raw数据库作为输出流
+                    InputStream is = RegisterActivity.this.getResources().openRawResource(R.raw.classroommap);
+                    // 用于存放数据库信息的数据流
+                    FileOutputStream fos = new FileOutputStream(databaseFilename);
+                    byte[] buffer = new byte[8192];
+                    int count = 0;
+                    // 把数据写入SD卡目录下
+                    while ((count = is.read(buffer)) > 0) {
+                        fos.write(buffer, 0, count);
+                    }
+                    fos.flush();
+                    fos.close();
+                    is.close();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+        }
+
         textname = (EditText)findViewById(R.id.name);
         textpasssword1 = (EditText)findViewById(R.id.password1);
         textpasssword2 = (EditText)findViewById(R.id.password2);

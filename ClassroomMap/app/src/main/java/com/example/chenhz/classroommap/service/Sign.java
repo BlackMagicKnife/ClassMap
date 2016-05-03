@@ -11,6 +11,8 @@ import java.util.Calendar;
  */
 public class Sign {
     private DatabaseHelper dbHelper;
+    String DB_PATH = "/data/data/com.example.chenhz.classroommap/databases/";
+    String DB_NAME = "classroommap.db";
     int year = Calendar.getInstance().get(Calendar.YEAR);
     int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
     int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -20,7 +22,7 @@ public class Sign {
     }
 
     public boolean HasSigned(String username){
-        SQLiteDatabase sdb=dbHelper.getReadableDatabase();
+        SQLiteDatabase sdb=SQLiteDatabase.openOrCreateDatabase(DB_PATH + DB_NAME, null);
         String sql="select * from user where username=?";
         Cursor cursor=sdb.rawQuery(sql, new String[]{username});
         cursor.moveToFirst();
@@ -38,7 +40,7 @@ public class Sign {
         }
     }
     public int getDays(String username){
-        SQLiteDatabase sdb=dbHelper.getWritableDatabase();
+        SQLiteDatabase sdb=SQLiteDatabase.openOrCreateDatabase(DB_PATH + DB_NAME, null);
         String sql="select * from user where username=?";
         Cursor cursor=sdb.rawQuery(sql, new String[]{username});
         cursor.moveToFirst();

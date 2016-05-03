@@ -7,13 +7,16 @@ import android.util.Log;
 
 public class ClassroomService {
 	private DatabaseHelper dbHelper;
-	private StringBuilder sb;
+	String DB_PATH = "/data/data/com.example.chenhz.classroommap/databases/";
+	String DB_NAME = "classroommap.db";
 	public ClassroomService(Context context){
 		dbHelper=new DatabaseHelper(context);
 	}
+	//数据库名
 
 	public int BuildingPnum(String building) {
-		SQLiteDatabase sdb=dbHelper.getReadableDatabase();
+		SQLiteDatabase sdb=SQLiteDatabase.openOrCreateDatabase(DB_PATH + DB_NAME, null);
+
 		int sum=0;
 		String sql="select personNum from classroom where building =?";
 		Log.i("building:",building);
@@ -31,7 +34,7 @@ public class ClassroomService {
 	//登录用
 	public  String[] search(String day,String time,String building){
 		int i=0;
-		SQLiteDatabase sdb=dbHelper.getReadableDatabase();
+		SQLiteDatabase sdb=SQLiteDatabase.openOrCreateDatabase(DB_PATH + DB_NAME, null);
 		String[] result = new String[200];
 		for(int j=0;j<result.length;j++){
 			result[j]="0";
@@ -51,7 +54,7 @@ public class ClassroomService {
 
 	public int[] roomPnum(String day,String time,String building){
 		int i=0;
-		SQLiteDatabase sdb=dbHelper.getReadableDatabase();
+		SQLiteDatabase sdb=SQLiteDatabase.openOrCreateDatabase(DB_PATH + DB_NAME, null);
 		int [] pnum = new int[200];
 		String sql="select CRnum,personNum from classroom where CRnum not in (select Croom from Course where Cday=? and Ctime=? and Cbuilding=?) and building=? order by personNum";
 		Cursor cursor=sdb.rawQuery(sql, new String[]{day,time,building,building});

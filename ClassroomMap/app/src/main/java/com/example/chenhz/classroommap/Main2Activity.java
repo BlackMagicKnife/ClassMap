@@ -3,6 +3,7 @@ package com.example.chenhz.classroommap;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,7 +94,9 @@ public class Main2Activity extends Activity{
         btnmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(Main2Activity.this,MapActivity.class);
+                intent.putExtra("building",name);
+                startActivity(intent);
             }
         });
 

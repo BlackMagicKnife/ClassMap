@@ -9,7 +9,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light">
         <activity
@@ -30,7 +30,7 @@
             android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar" />
         <activity
             android:name="com.example.chenhz.classroommap.StartActivity"
-            android:label="@string/title_activity_start"
+            android:label="@string/app_name"
             android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,6 +46,9 @@
             android:name="com.example.chenhz.classroommap.suggestion"
             android:label="@string/title_activity_suggestion"
             android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar" />
+        <activity
+            android:name="com.example.chenhz.classroommap.MapActivity"
+            android:label="@string/title_activity_map"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FragmentDemo</string>
+    <string name="app_name">教室地图</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -29,6 +29,8 @@
     <string name="title_activity_start">StartActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_suggestion">suggestion</string>
+    <string name="title_activity_sign">sign</string>
+    <string name="title_activity_map">地图</string>
 
 
 
